@@ -26,14 +26,14 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            // --- CUSTOM ------------    
+            // --- CUSTOM ------------
 
             ->sidebarCollapsibleOnDesktop()
             // ->sidebarFullyCollapsibleOnDesktop()
 
             ->path("admin")
             // ->path("dashboard")
-            // ->path("/")  
+            // ->path("/")
 
             // ->font("JetBrains Mono")
             ->font(
@@ -50,14 +50,16 @@ class AdminPanelProvider extends PanelProvider
 
             ->defaultThemeMode(ThemeMode::Light)
 
+            ->profile()
+
             // --- DEFAULT ------------
-            
+
             ->default()
             ->id("admin")
             ->login()
             ->colors([
                 "primary" => Color::Indigo,
-            ])            
+            ])
             ->discoverResources(
                 in: app_path("Filament/Resources"),
                 for: "App\Filament\Resources",
