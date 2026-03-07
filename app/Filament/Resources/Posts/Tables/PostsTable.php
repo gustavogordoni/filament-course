@@ -1,48 +1,45 @@
 <?php
 
-namespace App\Filament\Resources\Users\Tables;
+namespace App\Filament\Resources\Posts\Tables;
 
-use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Support\Colors\Color;
-use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\IconColumn;
+use Filament\Actions\DeleteAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Support\Icons\Heroicon;
+use Filament\Actions\ActionGroup;
+use Filament\Support\Colors\Color;
 
-class UsersTable
+class PostsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make("name")
-                    ->label("Nome")
+                TextColumn::make("title")
+                    ->label("Título")
                     ->searchable()
-                    ->sortable(),
-
-                ImageColumn::make("avatar")->imageHeight(40)->circular(),
-
-                TextColumn::make("email")->label("Email")->sortable(),
-
-                TextColumn::make("phone")
-                    ->label("Telefone")
-                    ->toggleable(isToggledHiddenByDefault: true),
-
-                IconColumn::make("is_admin")
-                    ->label("Admin")
+                    ->sortable()
+                    ->limit(20),
+                IconColumn::make("is_published")
+                    ->label("Publicado")
+                    ->sortable()
                     ->boolean()
                     ->trueIcon(Heroicon::Check)
                     ->falseIcon(Heroicon::XMark),
 
-                TextColumn::make("comments_count")
-                    ->label("Comentários")
-                    ->sortable()
-                    ->counts("comments"), // relacionamento com comentários
+                TextColumn::make("user.name")
+                    ->label("Autor")
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make("category.name")
+                    ->label("Categoria")
+                    ->searchable()
+                    ->sortable(),
 
                 TextColumn::make("created_at")
                     ->label("Criado em")
