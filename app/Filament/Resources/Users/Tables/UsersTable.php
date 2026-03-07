@@ -2,10 +2,14 @@
 
 namespace App\Filament\Resources\Users\Tables;
 
+use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Support\Colors\Color;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -20,9 +24,17 @@ class UsersTable
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make("email")
-                    ->label("Email")
-                    ->sortable(),
+                TextColumn::make("email")->label("Email")->sortable(),
+
+                TextColumn::make("phone")
+                    ->label("Telefone")
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                IconColumn::make("is_admin")
+                    ->label("Admin")
+                    ->boolean()
+                    ->trueIcon(Heroicon::Check)
+                    ->falseIcon(Heroicon::XMark),
 
                 TextColumn::make("comments_count")
                     ->label("Comentários")
@@ -41,8 +53,10 @@ class UsersTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
-                DeleteAction::make()
+                ActionGroup::make([
+                    EditAction::make()->label("Editar usuário"),
+                    DeleteAction::make()->label("Excluir usuário"),
+                ])->icon(Heroicon::Bars3)->color(Color::Yellow),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([DeleteBulkAction::make()]),
