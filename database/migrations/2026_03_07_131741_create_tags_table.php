@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,11 +12,13 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('tags', function (Blueprint $table) {
+        Schema::create("tags", function (Blueprint $table) {
             $table->id();
-            $table->string('tag_name', 100);
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->onUpdate('current_timestamp');
+            $table->string("tag_name", 100);
+            $table
+                ->timestamp("created_at")
+                ->default(DB::raw("CURRENT_TIMESTAMP"));
+            $table->timestamp("updated_at")->onUpdate("current_timestamp");
         });
 
         Schema::enableForeignKeyConstraints();
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tags');
+        Schema::dropIfExists("tags");
     }
 };

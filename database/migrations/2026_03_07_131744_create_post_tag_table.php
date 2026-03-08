@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,9 +12,15 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('post_tag', function (Blueprint $table) {
-            $table->foreignId('post_id');
-            $table->foreignId('tag_id');
+        // Schema::create('post_tag', function (Blueprint $table) {
+        //      $table->foreignId('post_id')->constrained()->cascadeOnDelete()->unsigned();
+        //      $table->foreignId('tag_id')->constrained()->cascadeOnDelete()->unsigned();
+        //    });
+
+        Schema::create("post_tag", function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("post_id")->constrained()->cascadeOnDelete();
+            $table->foreignId("tag_id")->constrained()->cascadeOnDelete();
         });
 
         Schema::enableForeignKeyConstraints();
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('post_tag');
+        Schema::dropIfExists("post_tag");
     }
 };

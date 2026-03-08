@@ -17,10 +17,10 @@ class PostFactory extends Factory
         return [
             'title' => fake()->sentence(4),
             'slug' => fake()->slug(),
+            'thumbnail' => fake()->imageUrl(640, 480),
             'is_published' => rand(0, 1),
             'content' => fake()->paragraphs(3, true),
             'user_id' => User::factory(),
-            'tag_id' => Tag::factory(),
             'category_id' => Category::factory(),
             'created_at' => fake()->dateTime(),
             'updated_at' => fake()->dateTime(),

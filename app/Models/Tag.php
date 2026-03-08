@@ -22,23 +22,18 @@ class Tag extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'tag_name',
-    ];
+    protected $fillable = ["tag_name"];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast to native types.
      *
-     * @return array<string, string>
+     * @var array
      */
-    protected function casts(): array
-    {
-        return [
-            'id' => 'integer',
-            'created_at' => 'timestamp',
-            'updated_at' => 'timestamp',
-        ];
-    }
+    protected $casts = [
+        "id" => "integer",
+        "created_at" => "timestamp",
+        "updated_at" => "timestamp",
+    ];
 
     public function posts(): BelongsToMany
     {

@@ -21,12 +21,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $users = User::factory(30)->create();
-        $tags = Tag::factory(30)->create();
+        Tag::factory(30)->create();
         $categories = Category::factory(30)->create();
         $posts = Post::factory(30)
             ->recycle($users)
             ->recycle($categories)
-            ->recycle($tags)
             ->create();
         $comments = Comment::factory(30)
             ->recycle($users)
@@ -41,12 +40,14 @@ class DatabaseSeeder extends Seeder
             "name" => "Test User",
             "email" => "test@example.com",
             "password" => bcrypt("12345"),
+            "is_admin" => 1,
         ]);
 
         User::factory()->create([
             "name" => "Admin User",
             "email" => "admin@example.com",
             "password" => bcrypt("12345"),
+            "is_admin" => 1,
         ]);
     }
 }

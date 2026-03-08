@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Post extends Model
 {
@@ -24,12 +24,14 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'title',
-        'slug',
-        'content',
-        'user_id',
-        'tag_id',
-    ];
+           "title",
+           "slug",
+           "thumbnail",
+           "is_published",
+           "content",
+           "user_id",
+           "category_id",
+       ];
 
     /**
      * Get the attributes that should be cast.
@@ -39,11 +41,10 @@ class Post extends Model
     protected function casts(): array
     {
         return [
-            'id' => 'integer',
-            'user_id' => 'integer',
-            'tag_id' => 'integer',
-            'created_at' => 'timestamp',
-            'updated_at' => 'timestamp',
+            "id" => "integer",
+            "user_id" => "integer",
+            "created_at" => "timestamp",
+            "updated_at" => "timestamp",
         ];
     }
 
@@ -52,18 +53,18 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function tag(): BelongsTo
-    {
-        return $this->belongsTo(Tag::class);
-    }
-
-    public function tags(): HasMany
-    {
-        return $this->hasMany(Tag::class);
-    }
+    // public function tag(): BelongsTo
+    // {
+    //     return $this->belongsTo(Tag::class);
+    // }
 
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }

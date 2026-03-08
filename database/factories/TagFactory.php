@@ -11,8 +11,11 @@ class TagFactory extends Factory
      */
     public function definition(): array
     {
+        $faker = \Faker\Factory::create();
+        $faker->addProvider(new \Bezhanov\Faker\Provider\Commerce($faker));
+
         return [
-            'tag_name' => fake()->regexify('[A-Za-z0-9]{10}'),
+            'tag_name' => strtolower($faker->department()),
             'created_at' => fake()->dateTime(),
             'updated_at' => fake()->dateTime(),
         ];
