@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         $users = User::factory(30)->create();
         Tag::factory(30)->create();
         $categories = Category::factory(30)->create();
-        $posts = Post::factory(30)
+        $posts = Post::factory(60)
             ->recycle($users)
             ->recycle($categories)
             ->create();

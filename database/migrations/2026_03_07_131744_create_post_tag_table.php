@@ -12,11 +12,6 @@ return new class extends Migration {
     {
         Schema::disableForeignKeyConstraints();
 
-        // Schema::create('post_tag', function (Blueprint $table) {
-        //      $table->foreignId('post_id')->constrained()->cascadeOnDelete()->unsigned();
-        //      $table->foreignId('tag_id')->constrained()->cascadeOnDelete()->unsigned();
-        //    });
-
         Schema::create("post_tag", function (Blueprint $table) {
             $table->id();
             $table->foreignId("post_id")->constrained()->cascadeOnDelete();
