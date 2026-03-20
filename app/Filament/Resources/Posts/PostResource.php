@@ -13,6 +13,8 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class PostResource extends Resource
 {
@@ -24,6 +26,28 @@ class PostResource extends Resource
 
     protected static ?string $modelLabel = "Postagem";
     protected static ?string $pluralModelLabel = 'Postagens';
+
+    protected static ?string $recordTitleAttribute = "title";
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['title', 'slug', 'user.name', 'category.name'];
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        return [
+            'Autor' => $record->user->name,
+            'Categoria' => $record->category->name,
+        ];
+    }
+
+    public static function getGlobalSearchEloquentQuery(): Builder
+    {
+        return parent::getGlobalSearchEloquentQuery()->with(['user', 'category']);
+    }
+
+    protected static int $globalSearchResultsLimit = 10;
 
     public static function form(Schema $schema): Schema
     {

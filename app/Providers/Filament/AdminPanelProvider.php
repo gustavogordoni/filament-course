@@ -52,6 +52,8 @@ class AdminPanelProvider extends PanelProvider
 
             ->profile()
 
+            ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
+
             // --- DEFAULT ------------
 
             ->default()

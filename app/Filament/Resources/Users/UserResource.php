@@ -13,7 +13,8 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use function PHPUnit\Framework\returnArgument;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Model;
 
 class UserResource extends Resource
 {
@@ -28,6 +29,18 @@ class UserResource extends Resource
 
     protected static ?string $recordTitleAttribute = "name";
 
+    // public static function getGlobalSearchResultTitle(Model $record): string | Htmlable
+    // {
+    //     return 'Nome do Usuário: ' . $record->name;
+    // }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name', 'email'];
+    }
+
+    protected static int $globalSearchResultsLimit = 10;
+
     public static function form(Schema $schema): Schema
     {
         return UserForm::configure($schema);
@@ -41,8 +54,8 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-                //
-            ];
+            //
+        ];
     }
 
     public static function getPages(): array
