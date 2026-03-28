@@ -15,6 +15,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use UnitEnum;
 
 class PostResource extends Resource
 {
@@ -22,10 +23,13 @@ class PostResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::DocumentText;
 
-    protected static ?int $navigationSort = 2;
+    protected static string | UnitEnum | null $navigationGroup = 'Postagens';
+
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $modelLabel = "Postagem";
     protected static ?string $pluralModelLabel = 'Postagens';
+    protected static ?string $navigationLabel = 'Postagens';
 
     protected static ?string $recordTitleAttribute = "title";
 
@@ -77,6 +81,11 @@ class PostResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return static::$model::count();
+        return static::$model::where('is_published', false)->count() . ' não publicados';
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+          return static::$model::where('is_published', false)->count() > 10 ? 'warning' : 'primary';
     }
 }

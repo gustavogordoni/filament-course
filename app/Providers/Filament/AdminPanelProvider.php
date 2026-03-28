@@ -20,6 +20,9 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\Navigation\NavigationGroup;
+use Filament\Navigation\NavigationItem;
+use Filament\Support\Icons\Heroicon;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -53,6 +56,31 @@ class AdminPanelProvider extends PanelProvider
             ->profile()
 
             ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
+
+            ->navigationGroups([
+                NavigationGroup::make()
+                    ->label('Postagens')
+                    // ->icon(Heroicon::ClipboardDocumentList)
+                    ->collapsible(true)
+            ])
+
+            ->navigationItems([
+                NavigationItem::make('Portfolio')
+                    ->url('http://gustavogordoni.github.io/', shouldOpenInNewTab: true)
+                    ->icon(Heroicon::UserCircle)
+                    // ->group('Postagens')
+                    ->sort(4),
+
+                NavigationItem::make('Repositório')
+                    ->url('https://github.com/gustavogordoni/filament-course')
+                    ->icon(Heroicon::CodeBracket)
+                    // ->group('Postagens')
+                    ->sort(5),
+            ])
+
+            // ->topNavigation()
+            // ->topbar(false)
+            // ->breadcrumbs(false)
 
             // --- DEFAULT ------------
 
