@@ -47,9 +47,11 @@ class AdminPanelProvider extends PanelProvider
 
             // ->brandName('Curso Filament')
             ->brandLogo(asset('images/icon.png'))
+            // ->brandLogo(url('https://avatars.githubusercontent.com/u/138526727'))
             ->brandLogoHeight('2rem')
 
-            ->favicon(asset('images/icon.png'))
+            // ->favicon(asset('images/icon.png'))
+            ->favicon(url: url('https://avatars.githubusercontent.com/u/138526727'))
 
             ->defaultThemeMode(ThemeMode::Light)
 
